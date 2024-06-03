@@ -1,0 +1,272 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "Hero",
+    "version" : "1.0.0",
+    "title" : "Hero API",
+    "contact" : {
+      "email" : "german.suvorov134@gmail.com"
+    }
+  },
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/GERMANSUVOROV134/NikiModels/1.0.0"
+  }, {
+    "description" : "local server",
+    "url" : "http://127.0.0.1:8000/api/"
+  } ],
+  "paths" : {
+    "/character" : {
+      "get" : {
+        "summary" : "метод получения информации о персонажах",
+        "tags" : [ "getCharacters" ],
+        "operationId" : "getCharacters",
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "page",
+          "schema" : {
+            "type" : "integer"
+          },
+          "description" : "Номер страницы для пагинации"
+        }, {
+          "in" : "query",
+          "name" : "name",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "Фильтровать по заданному имени"
+        }, {
+          "in" : "query",
+          "name" : "status",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "Фильтровать по заданному статусу ( alive, deadили unknown)."
+        }, {
+          "in" : "query",
+          "name" : "species",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "Фильтровать по данному виду."
+        }, {
+          "in" : "query",
+          "name" : "type",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "Фильтровать по заданному типу."
+        }, {
+          "in" : "query",
+          "name" : "gender",
+          "schema" : {
+            "type" : "string"
+          },
+          "description" : "Фильтровать по указанному полу ( female, male, genderlessили unknown)."
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "успешный ответ с информацией о персонажах",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Characters"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "ошибка",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/episode/{episode_id}" : {
+      "get" : {
+        "summary" : "метод получения информации о эпизоде",
+        "tags" : [ "getEpisodeById" ],
+        "operationId" : "getEpisodeById",
+        "parameters" : [ {
+          "name" : "episode_id",
+          "in" : "path",
+          "required" : true,
+          "description" : "идентификатор эпизода",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "успешный ответ с информацией о эпизоде",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Episode"
+                }
+              }
+            }
+          },
+          "default" : {
+            "description" : "ошибка",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
+      }
+    },
+    "schemas" : {
+      "Characters" : {
+        "type" : "object",
+        "properties" : {
+          "info" : {
+            "type" : "object",
+            "properties" : {
+              "count" : {
+                "type" : "string"
+              },
+              "pages" : {
+                "type" : "string"
+              },
+              "next" : {
+                "type" : "string"
+              },
+              "prev" : {
+                "type" : "string"
+              }
+            }
+          },
+          "results" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "integer"
+                },
+                "name" : {
+                  "type" : "string"
+                },
+                "status" : {
+                  "type" : "string"
+                },
+                "species" : {
+                  "type" : "string"
+                },
+                "type" : {
+                  "type" : "string"
+                },
+                "gender" : {
+                  "type" : "string"
+                },
+                "origin" : {
+                  "type" : "object",
+                  "properties" : {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "url" : {
+                      "type" : "string",
+                      "format" : "url"
+                    }
+                  }
+                },
+                "location" : {
+                  "type" : "object",
+                  "properties" : {
+                    "name" : {
+                      "type" : "string"
+                    },
+                    "url" : {
+                      "type" : "string",
+                      "format" : "url"
+                    }
+                  }
+                },
+                "image" : {
+                  "type" : "string",
+                  "format" : "url"
+                },
+                "episode" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "string",
+                    "format" : "url"
+                  }
+                },
+                "url" : {
+                  "type" : "string",
+                  "format" : "url"
+                },
+                "created" : {
+                  "type" : "string",
+                  "format" : "date-time"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Episode" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "air_date" : {
+            "type" : "string"
+          },
+          "episode" : {
+            "type" : "string"
+          },
+          "characters" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "url"
+            }
+          },
+          "url" : {
+            "type" : "string"
+          },
+          "created" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "Error" : {
+        "type" : "object",
+        "required" : [ "detail" ],
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
