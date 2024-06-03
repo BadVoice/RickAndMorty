@@ -8,7 +8,6 @@
     SelectViewport,
     useForwardPropsEmits,
   } from 'radix-vue';
-  import { SelectScrollDownButton, SelectScrollUpButton } from '.';
   import { cn } from '@/shared/lib/';
 
   defineOptions({
@@ -44,7 +43,6 @@
           props.class,
         )
       ">
-      <SelectScrollUpButton />
       <SelectViewport
         :class="
           cn(
@@ -55,7 +53,6 @@
         ">
         <slot />
       </SelectViewport>
-      <SelectScrollDownButton />
     </SelectContent>
   </SelectPortal>
 </template>

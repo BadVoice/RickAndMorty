@@ -157,13 +157,15 @@
     </div>
 
     <CharactersList
-      :characters="showCharactersByPage ? charactersByPage?.data?.results : characters?.data?.results"
+      :characters="showCharactersByPage
+        ? [...charactersByPage?.data?.results ?? []]
+        : [...characters?.data?.results ?? []]"
     />
 
     <div class="mx-auto flex w-fit bg-[#F9FAFB] py-2">
       <Pagination
         v-slot="{ page }"
-        :total="charactersByPage?.data.info?.count"
+        :total="parseInt(charactersByPage?.data.info?.count || '0', 10)"
         @update:page="(value) => handlePageSelected(value)"
         :sibling-count="1"
         v-model:page="pages"

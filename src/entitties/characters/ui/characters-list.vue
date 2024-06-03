@@ -1,12 +1,19 @@
 <script setup lang="ts">
   import { getStatusClass } from '@/entitties/characters/lib/status-mode';
+  import type { Characters } from '@/shared/api/generated/Api';
 
-  const props = defineProps({
-    characters: {
-      type: Array,
-      required: true
-    }
-  });
+  interface EpisodeName {
+    results: {
+      episodeName?: string;
+    }[];
+  }
+
+  type ExtendedCharacters = Characters & EpisodeName;
+
+  const props = defineProps<{
+    characters: ExtendedCharacters['results'];
+  }>();
+
 </script>
 
 <template>
@@ -33,7 +40,7 @@
           </div>
           <div class="flex flex-col">
             <span class="text-[rgb(158,158,158)] font-semibold">Last know location</span>
-            <span class="text-white">{{ character.location.name ?? 'unknown' }}</span>
+            <span class="text-white">{{ character.location?.name ?? 'unknown' }}</span>
           </div>
           <div class="flex flex-col">
             <span class="text-[rgb(158,158,158)] font-semibold">First seen in:</span>
