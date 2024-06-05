@@ -7,9 +7,7 @@ export function useCharacterForm(): {
 } {
   const schema = toTypedSchema(
     z.object({
-      name: z.string({ required_error: 'Введите почту' }).optional(),
-      phone: z.string({ required_error: 'Введите телефон' }).optional(),
-      email: z.string({ required_error: 'Введите почту' }).optional(),
+     
     }),
   );
 
